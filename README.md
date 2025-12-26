@@ -28,7 +28,9 @@ It demonstrates dynamic product rendering, cart management, and product detail v
 
 ---
 
-## 👤 Author
+## 👤 Authors
 
 **Muhamed Antar**
 * GitHub: [@3ntarino](https://github.com/3ntarino)
+**Mahmoud Sameh**
+* GitHub: [@20Mahmoud06](https://github.com/20Mahmoud06)
