@@ -1,4 +1,5 @@
 body {
+    --accent: #163e77;
     font-family: Arial, sans-serif;
     background: #f0f5fa;
     margin: 0;
@@ -88,13 +89,30 @@ h1 {
     color: #666;
 }
 
-#payment-form input {
+#payment-form input,
+.feedback-form input,
+.feedback-form select,
+.feedback-form textarea {
     width: 100%;
     padding: 10px;
     margin-bottom: 5px;
     border: 1px solid #dce3eb;
     border-radius: 5px;
     font-size: 16px;
+    font-family: inherit;
+    background: #fff;
+}
+
+.feedback-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #666;
+}
+
+.feedback-form textarea {
+    resize: vertical;
+    min-height: 130px;
 }
 
 .expiry-cvv {
@@ -214,4 +232,22 @@ h1 {
     border: 2px solid #333;
     object-fit: cover;
     cursor: pointer;
+}
+
+@media (max-width: 900px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .nav-center {
+        position: static;
+        left: auto;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .main-header {
+        flex-wrap: wrap;
+        gap: 16px;
+    }
 }

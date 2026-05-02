@@ -60,6 +60,24 @@ body {
     gap: 20px;
 }
 
+.nav-center {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.nav-center a {
+    font-size: 17px;
+    font-weight: 600;
+    color: #555;
+    text-decoration: none;
+    transition: color 0.25s ease;
+}
+
+.nav-center a:hover {
+    color: #4f7cff;
+}
+
 .center-text {
     text-align: center;
     flex-grow: 1;
@@ -200,4 +218,18 @@ body {
     border: 2px solid #333;
     object-fit: cover;
     cursor: pointer;
+}
+
+@media (max-width: 900px) {
+    .header {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .nav-center {
+        order: 3;
+        width: 100%;
+        justify-content: center;
+    }
 }
