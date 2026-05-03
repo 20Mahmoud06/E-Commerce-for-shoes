@@ -1,4 +1,4 @@
-let products = JSON.parse(localStorage.getItem("cart")) || [];
+﻿let products = JSON.parse(localStorage.getItem("cart")) || [];
 
 function updateTotals() {
     let subtotal = 0;

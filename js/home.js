@@ -1,4 +1,4 @@
-let currentBrand = "nike";
+﻿let currentBrand = "nike";
 function selectCategory(clickedButton) {
     const allButtons = document.querySelectorAll('.category-btn');
     allButtons.forEach(btn => btn.classList.remove('active'));
@@ -6,6 +6,7 @@ function selectCategory(clickedButton) {
     currentBrand = clickedButton.getAttribute("data-brand");
     filterProducts(currentBrand);
 }
+
 function filterProducts(brand) {
     const products = document.querySelectorAll('.product-card');
     products.forEach(product => {
