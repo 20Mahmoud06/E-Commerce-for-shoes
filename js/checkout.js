@@ -12,7 +12,8 @@ document.addEventListener('DOMContentLoaded', () => {
     products.forEach(p => {
         subtotal += parseFloat(p.price.replace('$', '')) * p.quantity;
     });
-    document.querySelector('.total-price').innerText = '$' + subtotal.toFixed(2);
+    const totalPrice = '$' + subtotal.toFixed(2);
+    document.querySelector('.total-price').innerText = totalPrice;
 
     const headerProfileImg = document.getElementById('header-profile-img');
     if (savedData.profilePic) headerProfileImg.src = savedData.profilePic;
@@ -138,9 +139,10 @@ document.addEventListener('DOMContentLoaded', () => {
             valid = false;
         }
         if (valid) {
+            localStorage.setItem('lastOrderTotal', totalPrice);
             alert('Payment successful!');
             localStorage.removeItem('cart');
-            window.location.href = '../home/index.html';
+            window.location.href = '../html/feedback.html';
         }
     });
 });

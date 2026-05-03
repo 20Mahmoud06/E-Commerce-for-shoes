@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback</title>
+    <link rel="stylesheet" href="../css/checkout.css">
+</head>
+<body>
+<header class="main-header">
+    <a href="../index.html" class="logo-section">
+        <img src="../photos/logos/kutuku.png" alt="Kutuku Logo">
+        <span class="site-name">Kutuku</span>
+    </a>
+
+    <nav class="nav-center">
+        <a href="../index.html">Shop</a>
+        <a href="../html/cart.html">Cart</a>
+        <a href="../html/feedback.html">Feedback</a>
+    </nav>
+
+    <a href="../html/profile.html" class="profile-icon">
+        <img id="header-profile-img" src="../photos/logos/profile.png" alt="Profile">
+    </a>
+</header>
+
+<div class="container">
+    <h1>Feedback</h1>
+
+    <div class="grid">
+        <div>
+            <div class="box">
+                <h3>Thanks for your order</h3>
+                <div class="row">
+                    <span class="label">Status</span>
+                    <div class="value">Your payment was completed successfully.</div>
+                </div>
+                <div class="row">
+                    <span class="label">Next</span>
+                    <div class="value">Tell us how your checkout experience felt so we can improve it.</div>
+                </div>
+                <div class="row">
+                    <span class="label">Order</span>
+                    <div class="value" id="feedback-total">Total paid: $0.00</div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="box">
+                <h3>Share your feedback</h3>
+                <form id="feedback-form" class="feedback-form">
+                    <label for="feedback-name">Name</label>
+                    <input type="text" id="feedback-name" placeholder="Your name">
+                    <span class="error" id="feedback-name-error"></span>
+
+                    <label for="feedback-rating">Rating</label>
+                    <select id="feedback-rating">
+                        <option value="">Choose a rating</option>
+                        <option value="5">5 - Excellent</option>
+                        <option value="4">4 - Good</option>
+                        <option value="3">3 - Average</option>
+                        <option value="2">2 - Needs work</option>
+                        <option value="1">1 - Poor</option>
+                    </select>
+                    <span class="error" id="feedback-rating-error"></span>
+
+                    <label for="feedback-message">Message</label>
+                    <textarea id="feedback-message" rows="5" placeholder="Write your feedback here"></textarea>
+                    <span class="error" id="feedback-message-error"></span>
+                </form>
+            </div>
+
+            <div class="total-box">
+                <h3>Your opinion matters</h3>
+                <div class="total-price" id="feedback-status">Ready</div>
+                <button class="pay-btn" id="submit-feedback-btn">Submit Feedback</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../js/feedback.js"></script>
+</body>
+</html>
