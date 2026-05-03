@@ -43,25 +43,25 @@
       <div class="right">
         <h3>Profile</h3>
 
-        <form class="profile-form" onsubmit="event.preventDefault()">
+        <form class="profile-form" id="profileForm">
           <label>
             Full Name
-            <input type="text" id="full-name" value="" />
+            <input type="text" id="full-name" required pattern="[A-Za-z\s]{2,50}" title="Name must be 2-50 characters, letters only" />
           </label>
 
           <label>
             Email Address
-            <input type="email" id="email-address" value="" />
+            <input type="email" id="email-address" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" title="Please enter a valid email address" />
           </label>
 
           <label>
             Phone Number
-            <input type="text" id="phone-number" value="" />
+            <input type="tel" id="phone-number" required pattern="(010|011|012|015)[0-9]{8}" title="Phone must start with 010, 011, 012, or 015 followed by 8 digits" />
           </label>
 
           <label>
             Address
-            <input type="text" id="address" value="" />
+            <input type="text" id="address" required minlength="5" maxlength="100" title="Address must be 5-100 characters" />
           </label>
 
           <div class="actions">

@@ -46,12 +46,29 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    const saveBtn = document.querySelector('.save-btn');
-    saveBtn.addEventListener('click', () => {
-        savedData.fullName = document.getElementById('full-name').value;
-        savedData.email = document.getElementById('email-address').value;
-        savedData.phone = document.getElementById('phone-number').value;
-        savedData.address = document.getElementById('address').value;
+    const profileForm = document.getElementById('profileForm');
+    profileForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        const fullNameInput = document.getElementById('full-name');
+        const emailInput = document.getElementById('email-address');
+        const phoneInput = document.getElementById('phone-number');
+        const addressInput = document.getElementById('address');
+
+        fullNameInput.value = fullNameInput.value.trim();
+        emailInput.value = emailInput.value.trim();
+        phoneInput.value = phoneInput.value.trim();
+        addressInput.value = addressInput.value.trim();
+
+        if (!profileForm.checkValidity()) {
+            profileForm.reportValidity();
+            return;
+        }
+
+        savedData.fullName = fullNameInput.value;
+        savedData.email = emailInput.value;
+        savedData.phone = phoneInput.value;
+        savedData.address = addressInput.value;
 
         document.getElementById('name').innerText = savedData.fullName || 'Default user name';
         document.getElementById('email').innerText = savedData.email || 'example@email.com';
