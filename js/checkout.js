@@ -84,7 +84,7 @@
                 key: 'address',
                 errorId: 'address-error',
                 validate: validateAddress,
-                errorMsg: 'Address must be 5-100 characters.'
+                errorMsg: 'Address must be 5-100 characters, no numbers.'
             };
         }
 
