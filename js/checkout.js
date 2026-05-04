@@ -43,11 +43,17 @@
     };
     const validateCVV = cvv => /^\d{3,4}$/.test(cvv);
 
+    function getFieldValue(id) {
+        const valueContainer = document.getElementById(id);
+        const input = valueContainer.querySelector('input');
+        return input ? input.value.trim() : valueContainer.innerText.trim();
+    }
+
     function validateContactInfo() {
-        const name = document.getElementById('name-value').innerText.trim();
-        const email = document.getElementById('email-value').innerText.trim();
-        const phone = document.getElementById('phone-value').innerText.trim();
-        const address = document.getElementById('address-value').innerText.trim();
+        const name = getFieldValue('name-value');
+        const email = getFieldValue('email-value');
+        const phone = getFieldValue('phone-value');
+        const address = getFieldValue('address-value');
         let valid = true;
 
         if (!validateName(name)) {
@@ -70,60 +76,84 @@
         return valid;
     }
 
+    function getContactFieldMeta(row) {
+        const labelElem = row.querySelector('.label');
+
+        if (!labelElem) {
+            return {
+                key: 'address',
+                errorId: 'address-error',
+                validate: validateAddress,
+                errorMsg: 'Address must be 5-100 characters.'
+            };
+        }
+
+        const label = labelElem.innerText.trim();
+        if (label === 'Name') {
+            return {
+                key: 'fullName',
+                errorId: 'name-error',
+                validate: validateName,
+                errorMsg: 'Name must be 2-50 letters.'
+            };
+        }
+
+        if (label === 'Email') {
+            return {
+                key: 'email',
+                errorId: 'email-error',
+                validate: validateEmail,
+                errorMsg: 'Please enter a valid email address.'
+            };
+        }
+
+        return {
+            key: 'phone',
+            errorId: 'phone-error',
+            validate: validatePhone,
+            errorMsg: 'Phone must start with 010, 011, 012, or 015 followed by 8 digits.'
+        };
+    }
+
     const edits = document.querySelectorAll('.edit');
     edits.forEach(edit => {
-        edit.addEventListener('click', function handleEdit() {
+        edit.addEventListener('click', () => {
             const row = edit.parentElement;
             const valueDiv = row.querySelector('.value');
-            const currentText = valueDiv.innerText;
-            const input = document.createElement('input');
-            input.type = 'text';
-            input.value = currentText;
-            valueDiv.innerHTML = '';
-            valueDiv.appendChild(input);
-            edit.innerText = '✓';
-            edit.classList.add('save');
-            edit.removeEventListener('click', handleEdit);
-            edit.addEventListener('click', () => {
-                const newValue = input.value.trim();
-                const labelElem = row.querySelector('.label');
-                let key, errorId;
-                if (labelElem) {
-                    const label = labelElem.innerText;
-                    key = label === 'Name' ? 'fullName' : label === 'Email' ? 'email' : 'phone';
-                    errorId = `${key === 'fullName' ? 'name' : key}-error`;
-                } else {
-                    key = 'address';
-                    errorId = 'address-error';
-                }
-                let valid = true;
-                let errorMsg = '';
-                if (key === 'fullName' && !validateName(newValue)) {
-                    valid = false;
-                    errorMsg = 'Name must be 2-50 letters.';
-                } else if (key === 'email' && !validateEmail(newValue)) {
-                    valid = false;
-                    errorMsg = 'Please enter a valid email address.';
-                } else if (key === 'phone' && !validatePhone(newValue)) {
-                    valid = false;
-                    errorMsg = 'Phone must start with 010, 011, 012, or 015 followed by 8 digits.';
-                } else if (key === 'address' && !validateAddress(newValue)) {
-                    valid = false;
-                    errorMsg = 'Address must be 5-100 characters.';
-                }
-                if (valid) {
-                    valueDiv.innerText = newValue;
-                    edit.innerText = '✎';
-                    edit.classList.remove('save');
-                    savedData[key] = newValue;
-                    localStorage.setItem('profileData', JSON.stringify(savedData));
-                    if (key === 'fullName') document.getElementById('card-name').value = newValue;
-                    document.getElementById(errorId).innerText = '';
-                    edit.addEventListener('click', handleEdit);
-                } else {
-                    document.getElementById(errorId).innerText = errorMsg;
-                }
-            });
+            const { key, errorId, validate, errorMsg } = getContactFieldMeta(row);
+
+            if (!edit.classList.contains('save')) {
+                const currentText = valueDiv.innerText.trim();
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.value = currentText;
+                valueDiv.innerHTML = '';
+                valueDiv.appendChild(input);
+                edit.innerText = '✓';
+                edit.classList.add('save');
+                input.focus();
+                input.select();
+                return;
+            }
+
+            const input = valueDiv.querySelector('input');
+            const newValue = input ? input.value.trim() : valueDiv.innerText.trim();
+
+            if (!validate(newValue)) {
+                document.getElementById(errorId).innerText = errorMsg;
+                return;
+            }
+
+            valueDiv.innerText = newValue;
+            edit.innerText = '✎';
+            edit.classList.remove('save');
+            document.getElementById(errorId).innerText = '';
+            savedData[key] = newValue;
+            localStorage.setItem('profileData', JSON.stringify(savedData));
+
+            if (key === 'fullName') {
+                document.getElementById('card-name').value = newValue;
+            }
         });
     });
 
@@ -163,10 +193,10 @@
             valid = false;
         }
 
-        const cardNumber = cardNumberInput.value;
-        const expiry = expiryInput.value;
-        const cvv = cvvInput.value;
-        const cardName = cardNameInput.value;
+        const cardNumber = cardNumberInput.value.trim();
+        const expiry = expiryInput.value.trim();
+        const cvv = cvvInput.value.trim();
+        const cardName = cardNameInput.value.trim();
 
         if (!validateCardNumber(cardNumber)) {
             document.getElementById('card-number-error').innerText = 'Invalid card number (must be 16 digits).';
